@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PeakAni</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="https://github.com/Varomine/website/blob/main/428468060_353972614136107_3905119719786698335_n-removebg-preview.png?raw=true">
+    <!-- <script defer src="https://tightslybella.com/67/a4/ae/67a4ae834810a0cdd163c164f9a6734c.js"></script> -->
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo" onclick="window.location.href='index.html'">Peak<span>Ani</span></div>
+            <div class="nav-right">
+                
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="genres.html">Genres</a></li>
+                        <li><a href="index.html?page=schedule"></i> Schedule</a></li>
+                        
+                        <li class="nav-dropdown">
+                            <a href="javascript:void(0)" class="nav-dropbtn">
+                                More <i class="fa-solid fa-angle-down" style="font-size: 0.8em;"></i>
+                            </a>
+                            <div class="nav-dropdown-content">
+                                <ul class="dropdown-card">
+                                    <li id="nav-bookmark" style="display: none;"><a href="index.html?page=bookmarks"><i class="fa-solid fa-book"></i>Bookmarks</a></li>
+                                    <li><a href="#" onclick="openRequestModal()"><i class="fa-solid fa-envelope-open-text"></i> Request</a></li>
+                                    <li><a href="#" onclick="openDonateModal()"><i class="fa-solid fa-heart"></i> Donate</a></li>
+                                    <li><a href="#"><i class="fa-brands fa-discord"></i> Discord </a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchInput" placeholder="Search anime..." onkeypress="checkSearchEnter(event)">
+                </div>
+                <div id="auth-buttons" style="display: flex; gap: 10px; margin-left: 15px;">
+                    <button id="btn-login" class="btn-secondary" onclick="openAuthModal('login')">Login</button>
+                    <button id="btn-signup" class="btn-watch-now" style="padding: 8px 15px; font-size: 0.9em;" onclick="openAuthModal('signup')">Sign Up</button>
+                </div>
+
+                <div id="user-profile" style="display: none; align-items: center; gap: 15px; margin-left: 15px;">
+                    <span id="user-email" style="color: var(--accent); font-size: 0.9rem; font-weight: 500;"></span>
+                    <button id="btn-logout" class="btn-secondary" onclick="handleLogout()">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+  
+    <main id="app-content">
+    </main>
+
+    <div id="loading-overlay" class="modal-overlay" style="display: none;">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <p>Loading Anime Assets...</p>
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill"></div>
+            </div>
+            <p class="progress-text">0% complete</p>
+        </div>
+    </div>
+
+    <div id="auth-modal" class="auth-modal" style="display: none;">
+        <div class="auth-box">
+            <span class="close-modal" onclick="closeAuthModal()"><i class="fa-solid fa-xmark"></i></span>
+            <h2 id="auth-title">Login</h2>
+            
+            <form id="auth-form" onsubmit="handleAuthSubmit(event)">
+                <input type="email" id="auth-email" class="auth-input" placeholder="Email" required>
+                <input type="password" id="auth-password" class="auth-input" placeholder="Password" required>
+                
+                <div id="forgot-pass-container" style="text-align: right; margin-top: -5px; margin-bottom: 15px;">
+                    <span onclick="openAuthModal('reset')" style="color: var(--text-muted); font-size: 0.85rem; cursor: pointer; transition: 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'">Forgot Password?</span>
+                </div>
+
+                <button type="submit" id="auth-submit-btn" class="auth-btn">Login</button>
+            </form>
+            
+            <p class="auth-switch" id="auth-switch-text">
+                Don't have an account? <span onclick="openAuthModal('signup')">Sign Up</span>
+            </p>
+        </div>
+    </div>
+
+    <div id="preview-modal" class="auth-modal" style="display: none;">
+        <div class="auth-box" style="max-width: 600px; padding: 20px;">
+            <span class="close-modal" onclick="closePreview()"><i class="fa-solid fa-xmark"></i></span>
+            <h2 style="margin-bottom: 15px; font-size: 1.5rem; text-align: left;">Trailer Preview</h2>
+            <div id="preview-container" style="width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 8px; overflow: hidden;">
+                </div>
+        </div>
+    </div>
+
+    <div id="donate-modal" class="auth-modal" style="display: none;">
+        <div class="auth-box">
+            <span class="close-modal" onclick="closeDonateModal()"><i class="fa-solid fa-xmark"></i></span>
+            <h2 style="text-align: center; margin-bottom: 10px;">Support☕</h2>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 25px; font-size: 0.9rem;">
+                I've doing this project alone and it's been a lot of work to keep it running smoothly. It'd be nice if you donate to keep me maintain and improve this project. Thanks for your support! 
+            </p>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 25px; font-size: 0.9rem;">
+                ( Btw if the donation reached my goal I can upgrade video servers to make it faster, more stable and free of ads )
+            </p>
+            
+            <div class="crypto-list">
+                <div class="crypto-item" onclick="copyCryptoAddress('Solana', 'A6Lrk3Bg9fMmNpGN1TLEJWiHErHcPyhCStTKJfkD46af')">
+                    <div class="crypto-info">
+                        <i class="fa-solid fa-bolt" style="color: #14F195;"></i>
+                        <div class="crypto-text">
+                            <h4>Solana</h4>
+                            <span>SOL Network</span>
+                        </div>
+                    </div>
+                    <button class="copy-btn"><i class="fa-regular fa-copy"></i></button>
+                </div>
+
+                <div class="crypto-item" onclick="copyCryptoAddress('Ethereum', '0x8c38316DB12f1c5800Ea278076C42579eaAf5293')">
+                    <div class="crypto-info">
+                        <i class="fa-brands fa-ethereum" style="color: #627EEA;"></i>
+                        <div class="crypto-text">
+                            <h4>Ethereum</h4>
+                            <span>ERC-20</span>
+                        </div>
+                    </div>
+                    <button class="copy-btn"><i class="fa-regular fa-copy"></i></button>
+                </div>
+
+                <div class="crypto-item" onclick="copyCryptoAddress('Polygon', '0x8c38316DB12f1c5800Ea278076C42579eaAf5293')">
+                    <div class="crypto-info">
+                        <i class="fa-solid fa-draw-polygon" style="color: #8247E5;"></i>
+                        <div class="crypto-text">
+                            <h4>Polygon</h4>
+                            <span>MATIC Network</span>
+                        </div>
+                    </div>
+                    <button class="copy-btn"><i class="fa-regular fa-copy"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="report-modal" class="auth-modal" style="display: none;">
+        <div class="auth-box" style="max-width: 400px; padding: 25px;">
+            <span class="close-modal" onclick="closeReportModal()"><i class="fa-solid fa-xmark"></i></span>
+            <h2 style="font-size: 1.5rem; text-align: center; color: #ff4d4d;">
+                <i class="fa-solid fa-triangle-exclamation"></i> Report Server
+            </h2>
+            <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">
+                Please select the server that has the issue. I'll check and fix the problem as soon as possible. Thanks for your help!
+            </p>
+            
+            <select id="report-server-select" class="auth-input" style="width: 100%; margin-bottom: 20px; cursor: pointer; border-radius: 8px;"></select>
+            <input type="text" id="Note" class="auth-input" placeholder="Note (optional)" style="margin-bottom: 25px;">
+            
+            <button id="submit-report-btn" class="auth-btn" style="background: #ff4d4d; color: white; width: 100%; border: none; font-weight: bold; font-size: 1rem; transition: 0.3s;" onclick="submitReport()" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+                <i class="fa-solid fa-paper-plane"></i> Send 
+            </button>
+        </div>
+    </div>
+
+    <div id="request-modal" class="auth-modal" style="display: none;">
+        <div class="auth-box" style="max-width: 400px; padding: 25px;">
+            <span class="close-modal" onclick="closeRequestModal()"><i class="fa-solid fa-xmark"></i></span>
+            <h2 style="font-size: 1.5rem; text-align: center; color: var(--accent);">
+                <i class="fa-solid fa-envelope-open-text"></i> Request Anime
+            </h2>
+            <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">
+                Want more anime? Just request it!
+            </p>
+            
+            <input type="text" id="request-title" class="auth-input" placeholder="Anime Title (Required)*" style="margin-bottom: 15px;">
+            <input type="text" id="request-mal" class="auth-input" placeholder="MyAnimeList ID (Optional)" style="margin-bottom: 25px;">
+            
+            <button id="submit-request-btn" class="auth-btn" style="width: 100%; border: none; font-weight: bold; font-size: 1rem; transition: 0.3s;" onclick="submitRequest()">
+                <i class="fa-solid fa-paper-plane"></i> Submit Request
+            </button>
+        </div>
+    </div>
+
+    <nav class="bottom-nav-mobile">
+        <a href="index.html" class="nav-item active">
+            <i class="fa-solid fa-house"></i><span>Home</span>
+        </a>
+        <a href="genres.html" class="nav-item">
+            <i class="fa-solid fa-layer-group"></i><span>Genres</span>
+        </a>
+        <a href="index.html?page=schedule" class="nav-item">
+            <i class="fa-solid fa-calendar-days"></i><span>Schedule</span>
+        </a>
+        <a href="index.html?page=bookmarks" class="nav-item" id="nav-bookmark-mobile"   >
+            <i class="fa-solid fa-bookmark"></i><span>Bookmarks</span>
+        </a>
+        <a href="#" onclick="openRequestModal()" class="nav-item">
+            <i class="fa-solid fa-envelope-open-text"></i><span>Request Anime</span>
+        </a>
+        <a href="#" onclick="openDonateModal()" class="nav-item">
+            <i class="fa-solid fa-heart"></i><span>Donate</span>
+        </a>
+        
+    </nav>
+    
+    <script>
+        const observer = new MutationObserver(() => {
+            const desktopNav = document.getElementById('nav-bookmark');
+            const mobileNav = document.getElementById('nav-bookmark-mobile');
+            if (desktopNav && mobileNav) mobileNav.style.display = desktopNav.style.display;
+        });
+        const targetNode = document.getElementById('nav-bookmark');
+        if(targetNode) observer.observe(targetNode, { attributes: true, attributeFilter: ['style'] });
+    </script>
+    
+    <script type="module" src="script.js"></script>
+
+</body>
+</html>
