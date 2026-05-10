@@ -10959,5 +10959,75 @@
             ]
         }
     ]
+  },
+  {
+    "id": "109",
+    "title": "Rilakkuma",
+    "preview": "https://www.youtube-nocookie.com/embed/rV-fcFL5vtU?enablejsapi=1&wmode=opaque&autoplay=1",
+    "MalId": 60153,
+    "quality": "FHD",
+    "year": 2026,
+    "status": "Airing",
+    "search_keywords": ["Rilakkuma", "リラックマ"],
+    "image": "https://myanimelist.net/images/anime/1956/155696l.jpg",
+    "banner": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/183231-JFjTqQe3rPCw.jpg",
+    "synopsis": "Experience the stress-free world of Rilakkuma, the relaxed bear who makes being lazy look effortless!\n\n(Source: Crunchyroll)",
+    "genres": ["Slice of Life"],
+    "episodes": [
+        {
+            "ep_num": 1,
+            "title": "Episode 1",
+            "servers": [
+                { "name": "Server 1", "video_url": "https://vidmoly.biz/embed-y6byjxaz7748.html" },
+                { "name": "Server 2", "video_url": "https://short.icu/3zr2B10GW" },
+                { "name": "Server 3", "video_url": "https://thepeak.4meplayer.com/#oksia" }
+            ]
+        },
+        {
+            "ep_num": 2,
+            "title": "Episode 2",
+            "servers": [
+                { "name": "Server 1", "video_url": "https://vidmoly.biz/embed-ndrax11nijyb.html" },
+                { "name": "Server 2", "video_url": "https://short.icu/AykeK3tit" },
+                { "name": "Server 3", "video_url": "https://thepeak.4meplayer.com/#hax9i" }
+            ]
+        },
+        {
+            "ep_num": 3,
+            "title": "Episode 3",
+            "servers": [
+                { "name": "Server 1", "video_url": "https://vidmoly.biz/embed-urpewfxnvdx7.html" },
+                { "name": "Server 2", "video_url": "https://short.icu/-HJzKE7C6" },
+                { "name": "Server 3", "video_url": "https://thepeak.4meplayer.com/#1q3sp" }
+            ]
+        },
+        {
+            "ep_num": 4,
+            "title": "Episode 4",
+            "servers": [
+                { "name": "Server 1", "video_url": "https://vidmoly.biz/embed-aal91l48fm02.html" },
+                { "name": "Server 2", "video_url": "https://short.icu/R6GgiYJBC" },
+                { "name": "Server 3", "video_url": "https://thepeak.4meplayer.com/#c36b9" }
+            ]
+        },
+        {
+            "ep_num": 5,
+            "title": "Episode 5",
+            "servers": [
+                { "name": "Server 1", "video_url": "https://vidmoly.biz/embed-4tbq8vtj9vdc.html" },
+                { "name": "Server 2", "video_url": "https://short.icu/1qM55sOld" },
+                { "name": "Server 3", "video_url": "https://thepeak.4meplayer.com/#9ej3k" }
+            ]
+        },
+        {
+            "ep_num": 6,
+            "title": "Episode 6",
+            "servers": [
+                { "name": "Server 1", "video_url": "https://vidmoly.biz/embed-o5no5girrucg.html" },
+                { "name": "Server 2", "video_url": "https://short.icu/3CwAdvuvf" },
+                { "name": "Server 3", "video_url": "https://thepeak.4meplayer.com/#fsbzw" }
+            ]
+        }
+    ]
   }
 ]
